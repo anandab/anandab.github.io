@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>index.html</title>
+<meta name="Generator" content="Vim/8.1">
+<meta name="plugin-version" content="vim8.1_v1">
+<meta name="syntax" content="c">
+<meta name="settings" content="use_css,pre_wrap,no_foldcolumn,expand_tabs,prevent_copy=">
+<meta name="colorscheme" content="monokai">
+<style type="text/css">
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #ffffff; background-color: #262626; }
+body { font-family: monospace; color: #ffffff; background-color: #262626; }
+* { font-size: 1em; }
+.Type { color: #ff005f; }
+.Comment { color: #6c6c6c; }
+-->
+</style>
+</head>
+<body>
+<pre id='vimCodeElement'>
+<span class="Type">struct</span> virtnet_info {
+   <span class="Type">struct</span> virtio_device *vdev;
+   <span class="Type">struct</span> virtqueue *cvq;
+   <span class="Type">struct</span> net_device *dev;
+   <span class="Type">struct</span> send_queue *sq;
+   <span class="Type">struct</span> receive_queue *rq;
+   <span class="Type">unsigned</span> <span class="Type">int</span> status;
+
+   <span class="Comment">/*</span><span class="Comment"> Max # of queue pairs supported by the device </span><span class="Comment">*/</span>
+   u16 max_queue_pairs;
+
+   <span class="Comment">/*</span><span class="Comment"> # of queue pairs currently used by the driver </span><span class="Comment">*/</span>
+   u16 curr_queue_pairs;
+
+   <span class="Comment">/*</span><span class="Comment"> # of XDP queue pairs currently used by the driver </span><span class="Comment">*/</span>
+   u16 xdp_queue_pairs;
+
+   <span class="Comment">/*</span><span class="Comment"> I like... big packets and I cannot lie! </span><span class="Comment">*/</span>
+   <span class="Type">bool</span> big_packets;
+
+   <span class="Comment">/*</span><span class="Comment"> Host will merge rx buffers for big packets (shake it! shake it!) </span><span class="Comment">*/</span>
+   <span class="Type">bool</span> mergeable_rx_bufs;
+
+   <span class="Comment">/*</span><span class="Comment"> Has control virtqueue </span><span class="Comment">*/</span>
+   <span class="Type">bool</span> has_cvq;
+
+   <span class="Comment">/*</span><span class="Comment"> Host can handle any s/g split between our header and packet data </span><span class="Comment">*/</span>
+   <span class="Type">bool</span> any_header_sg;
+
+   <span class="Comment">/*</span><span class="Comment"> Packet virtio header size </span><span class="Comment">*/</span>
+   u8 hdr_len;
+
+   <span class="Comment">/*</span><span class="Comment"> Work struct for refilling if we run low on memory. </span><span class="Comment">*/</span>
+   <span class="Type">struct</span> delayed_work refill;
+
+   <span class="Comment">/*</span><span class="Comment"> Work struct for config space updates </span><span class="Comment">*/</span>
+   <span class="Type">struct</span> work_struct config_work;
+
+   <span class="Comment">/*</span><span class="Comment"> Does the affinity hint is set for virtqueues? </span><span class="Comment">*/</span>
+   <span class="Type">bool</span> affinity_hint_set;
+
+   <span class="Comment">/*</span><span class="Comment"> CPU hotplug instances for online &amp; dead </span><span class="Comment">*/</span>
+   <span class="Type">struct</span> hlist_node node;
+   <span class="Type">struct</span> hlist_node node_dead;
+
+   <span class="Type">struct</span> control_buf *ctrl;
+
+   <span class="Comment">/*</span><span class="Comment"> Ethtool settings </span><span class="Comment">*/</span>
+   u8 duplex;
+   u32 speed;
+
+   <span class="Type">unsigned</span> <span class="Type">long</span> guest_offloads;
+   <span class="Type">unsigned</span> <span class="Type">long</span> guest_offloads_capable;
+
+   <span class="Comment">/*</span><span class="Comment"> failover when STANDBY feature enabled </span><span class="Comment">*/</span>
+   <span class="Type">struct</span> failover *failover;
+};
+
+
+<span class="Comment">/*</span><span class="Comment"> From drivers/net/vritio_net.c </span><span class="Comment">*/</span>
+<span class="Comment">/*</span><span class="Comment"> <a href="https://github.com/torvalds/linux/blob/master/drivers/net/virtio_net.c">https://github.com/torvalds/linux/blob/master/drivers/net/virtio_net.c</a> </span><span class="Comment">*/</span>
+</pre>
+</body>
+</html>
+<!-- vim: set foldmethod=manual : -->
